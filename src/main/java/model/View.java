@@ -42,11 +42,11 @@ public class View {
 
     }
 
-    public void render(ObservableList<GameObject> structuresList, Tower tower) {
+    public void render(ObservableList<GameObject> gameObjectList, Tower tower) {
         Platform.runLater(() -> {
             context.clearRect(0, 0, width.doubleValue(), height.doubleValue());
             drawBackground();
-            drawStructures(structuresList);
+            drawStructures(gameObjectList);
             if (tower != null) {
                 drawToCreatingTower(tower);
             }
@@ -54,8 +54,8 @@ public class View {
         });
     }
 
-    private void drawStructures(ObservableList<GameObject> structuresList) {
-        for (GameObject gameObject : structuresList) {
+    private void drawStructures(ObservableList<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
             gameObject.draw(context, fieldSize);
         }
     }

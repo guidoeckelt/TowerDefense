@@ -24,19 +24,9 @@ public abstract class GameObject {
         this.updateVisual();
     }
 
-    public void draw(GraphicsContext context, double fieldSize) {
-        context.setFill(color);
+    public abstract void draw(GraphicsContext context, double fieldSize);
 
-        double width = this.size.getWidth() * fieldSize;
-        double height = this.size.getHeight() * fieldSize;
-        double x = this.visualMeasurePoint.getX() * fieldSize;
-        double y = this.visualMeasurePoint.getY() * fieldSize;
-        context.fillRect(x, y, width, height);
-    }
-
-    private void updateVisual() {
-        this.visualMeasurePoint = new Vector2D(position.getX() - (size.getWidth() / 2), position.getY() - (size.getHeight() / 2));
-    }
+    public abstract void updateVisual();
 
     public Vector2D getPosition() {
         return position;

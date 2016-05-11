@@ -50,7 +50,7 @@ public class MainView implements Initializable {
         scene.setOnDragEntered(dragEvent -> {
             if (dragEvent.getDragboard().hasString()) {
                 String name = dragEvent.getDragboard().getString();
-                viewModel.newToCreatingStructure(name, dragEvent.getX(), dragEvent.getY());
+                viewModel.newToCreatingTower(name, dragEvent.getX(), dragEvent.getY());
             }
         });
         scene.setOnDragOver(dragEvent -> {
@@ -83,19 +83,6 @@ public class MainView implements Initializable {
 
         sceneContainer.getChildren().add(scene);
         viewModel.getTd().getView().setScene(scene);
-
     }
 
-    private double getRoundedOffset(double number) {
-        double rounded = Math.round(number);
-        if (number != rounded) {
-            if (rounded > number) {
-                return rounded - number;
-            } else {
-                return number - rounded;
-            }
-        } else {
-            return 0;
-        }
-    }
 }

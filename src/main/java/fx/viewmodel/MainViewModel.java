@@ -22,7 +22,7 @@ public class MainViewModel {
         initSuitableSizes();
     }
 
-    public void newToCreatingStructure(String name, double mouseX, double mouseY) {
+    public void newToCreatingTower(String name, double mouseX, double mouseY) {
         double x = (mouseX / td.getView().getFieldSize());
         double y = (mouseY / td.getView().getFieldSize());
         Vector2D suitablePosition = getSuitablePosition(x, y);
@@ -37,6 +37,7 @@ public class MainViewModel {
         td.toCreatingTowerProperty().get().setPosition(suitablePosition);
     }
 
+    //TODO implement
     public boolean isTowerOnFreeSpot() {
         return true;
     }

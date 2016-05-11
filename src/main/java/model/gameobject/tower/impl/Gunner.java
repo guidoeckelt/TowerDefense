@@ -21,6 +21,11 @@ public class Gunner extends Tower {
         this.color = Color.color(0, 1, 0);
     }
 
+    @Override
+    public void updateVisual() {
+        this.visualMeasurePoint = new Vector2D(position.getX() - (size.getWidth() / 2), position.getY() - (size.getHeight() / 2));
+    }
+
     public void draw(GraphicsContext context, double fieldSize) {
         if (buildStatus == BuildStatus.INVALID) {
             context.setFill(Color.RED);
