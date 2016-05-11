@@ -1,4 +1,4 @@
-# TD
+# TowerDefense
 
 Some JavaFX MVVM practicing
 
