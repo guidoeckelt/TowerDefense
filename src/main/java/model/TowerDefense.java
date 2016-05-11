@@ -13,7 +13,7 @@ import java.util.TimerTask;
 /**
  * Created by Guido on 11.05.2016.
  */
-public class TD {
+public class TowerDefense {
 
     private View view;
     private ObservableList<GameObject> structuresList = FXCollections.observableArrayList();
@@ -22,7 +22,7 @@ public class TD {
     private Timer timer;
     private TimerTask gameLoop;
 
-    public TD() {
+    public TowerDefense() {
         this.view = new View();
         this.timer = new Timer(true);
         this.gameLoop = new TimerTask() {

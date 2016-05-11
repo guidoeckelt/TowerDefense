@@ -9,7 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.TD;
+import model.TowerDefense;
 
 import java.io.IOException;
 
@@ -22,7 +22,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        TD td = new TD();
+        TowerDefense td = new TowerDefense();
 
         MainViewModel mainViewModel = new MainViewModel(td);
         MainView mainView = new MainView(mainViewModel);

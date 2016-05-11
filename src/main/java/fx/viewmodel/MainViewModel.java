@@ -1,7 +1,7 @@
 package fx.viewmodel;
 
 import javafx.geometry.Dimension2D;
-import model.TD;
+import model.TowerDefense;
 import model.Vector.Vector2D;
 import model.gameobject.tower.BuildStatus;
 import model.gameobject.tower.Tower;
@@ -14,10 +14,10 @@ import java.util.LinkedList;
  */
 public class MainViewModel {
 
-    private TD td;
+    private TowerDefense td;
     private LinkedList<Dimension2D> properSizes = new LinkedList<>();
 
-    public MainViewModel(TD td) {
+    public MainViewModel(TowerDefense td) {
         this.td = td;
         initSuitableSizes();
     }
@@ -123,7 +123,7 @@ public class MainViewModel {
         properSizes.add(new Dimension2D(1900, 1200));
     }
 
-    public TD getTd() {
+    public TowerDefense getTd() {
         return td;
     }
 
