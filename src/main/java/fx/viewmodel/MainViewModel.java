@@ -52,7 +52,7 @@ public class MainViewModel {
 
     public void createTower() {
         td.getToCreatingTower().setBuildStatus(BuildStatus.BUILD);
-        td.getStructuresList().add(td.getToCreatingTower());
+        td.getGameObjects().add(td.getToCreatingTower());
         td.toCreatingTowerProperty().setValue(null);
     }
 

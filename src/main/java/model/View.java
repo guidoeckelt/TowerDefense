@@ -46,7 +46,7 @@ public class View {
         Platform.runLater(() -> {
             context.clearRect(0, 0, width.doubleValue(), height.doubleValue());
             drawBackground();
-            drawStructures(gameObjectList);
+            drawGameObjects(gameObjectList);
             if (tower != null) {
                 drawToCreatingTower(tower);
             }
@@ -54,7 +54,7 @@ public class View {
         });
     }
 
-    private void drawStructures(ObservableList<GameObject> gameObjects) {
+    private void drawGameObjects(ObservableList<GameObject> gameObjects) {
         for (GameObject gameObject : gameObjects) {
             gameObject.draw(context, fieldSize);
         }
@@ -93,5 +93,13 @@ public class View {
 
     public double getFieldSize() {
         return fieldSize;
+    }
+
+    public double getGridWidth() {
+        return gridWidth;
+    }
+
+    public double getGridHeight() {
+        return gridHeight;
     }
 }
