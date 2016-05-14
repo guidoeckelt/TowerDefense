@@ -1,10 +1,10 @@
 package model.gameobject.tower.impl;
 
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Vector.Vector2D;
 import model.gameobject.tower.BuildStatus;
 import model.gameobject.tower.Tower;
+import model.util.DrawParamaters;
 
 /**
  * Created by Guido on 08.05.2016.
@@ -17,6 +17,8 @@ public class Gunner extends Tower {
         this.cost = 50;
         this.dmg = 10;
         this.attackSpeed = 3;
+        this.range = 5;
+        this.maxLevel = 3;
 
         this.color = Color.color(0, 1, 0);
     }
@@ -27,19 +29,19 @@ public class Gunner extends Tower {
     }
 
     @Override
-    public void draw(GraphicsContext context, double fieldSize) {
+    public void draw(DrawParamaters drawParamaters) {
         if (buildStatus == BuildStatus.INVALID) {
-            context.setFill(Color.RED);
+            drawParamaters.getContext().setFill(Color.RED);
         } else if (buildStatus == BuildStatus.VALID) {
-            context.setFill(Color.DARKGREEN);
+            drawParamaters.getContext().setFill(Color.DARKGREEN);
         } else if (buildStatus == BuildStatus.BUILD) {
-            context.setFill(color);
+            drawParamaters.getContext().setFill(color);
         }
-        double width = this.size.getWidth() * fieldSize;
-        double height = this.size.getHeight() * fieldSize;
-        double x = this.visualMeasurePoint.getX() * fieldSize;
-        double y = this.visualMeasurePoint.getY() * fieldSize;
-        context.fillRect(x, y, width, height);
+        double width = this.size.getWidth() * drawParamaters.getFieldSize();
+        double height = this.size.getHeight() * drawParamaters.getFieldSize();
+        double x = this.visualMeasurePoint.getX() * drawParamaters.getFieldSize();
+        double y = this.visualMeasurePoint.getY() * drawParamaters.getFieldSize();
+        drawParamaters.getContext().fillRect(x, y, width, height);
     }
 
 }

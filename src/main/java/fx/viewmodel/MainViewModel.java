@@ -3,6 +3,7 @@ package fx.viewmodel;
 import javafx.geometry.Dimension2D;
 import model.TowerDefense;
 import model.Vector.Vector2D;
+import model.gameobject.GameObject;
 import model.gameobject.tower.BuildStatus;
 import model.gameobject.tower.Tower;
 import model.gameobject.tower.impl.Gunner;
@@ -22,7 +23,7 @@ public class MainViewModel {
         initSuitableSizes();
     }
 
-    public void newToCreatingTower(String name, double mouseX, double mouseY) {
+    public void createNewPossibleTower(String name, double mouseX, double mouseY) {
         double x = (mouseX / td.getView().getFieldSize());
         double y = (mouseY / td.getView().getFieldSize());
         Vector2D suitablePosition = getSuitablePosition(x, y);
@@ -30,15 +31,22 @@ public class MainViewModel {
         td.setToCreatingTower(tower);
     }
 
-    public void updateToCreatingTower(double mouseX, double mouseY) {
+    public void updateNewPossibleTower(double mouseX, double mouseY) {
         double x = (mouseX / td.getView().getFieldSize());
         double y = (mouseY / td.getView().getFieldSize());
         Vector2D suitablePosition = getSuitablePosition(x, y);
         td.toCreatingTowerProperty().get().setPosition(suitablePosition);
     }
 
-    //TODO implement
     public boolean isTowerOnFreeSpot() {
+        if(td.getGameObjects().size() > 0){
+            for(GameObject gameObject : td.getGameObjects()){
+                if(td.toCreatingTowerProperty().get() != gameObject &&
+                        td.toCreatingTowerProperty().get().intersects(gameObject)){
+                    return false;
+                }
+            }
+        }
         return true;
     }
 
@@ -50,9 +58,9 @@ public class MainViewModel {
         td.getToCreatingTower().setBuildStatus(BuildStatus.VALID);
     }
 
-    public void createTower() {
+    public void addNewPossibleTower() {
         td.getToCreatingTower().setBuildStatus(BuildStatus.BUILD);
-        td.getGameObjects().add(td.getToCreatingTower());
+        td.addGameObject(td.getToCreatingTower());
         td.toCreatingTowerProperty().setValue(null);
     }
 
@@ -74,7 +82,7 @@ public class MainViewModel {
 
     public Dimension2D getProperSize(double width, double height) {
         //return new Dimension2D(width, height);
-        Dimension2D properSize = null;
+        Dimension2D properSize;
         double properWidth = -1;
         double properHeight = -1;
         if (properSizes.contains(new Dimension2D(width, height))) {
@@ -89,6 +97,10 @@ public class MainViewModel {
                             properWidth = properSizes.get(properSizes.indexOf(size) - 1).getWidth();
                         }
                     }
+
+                    if (properSizes.getLast() == size) {
+                        properWidth = properSizes.getLast().getWidth();
+                    }
                 }
                 if (properHeight < 0) {
                     if (size.getHeight() >= height) {
@@ -98,13 +110,10 @@ public class MainViewModel {
                             properHeight = properSizes.get(properSizes.indexOf(size) - 1).getHeight();
                         }
                     }
+                    if (properSizes.getLast() == size) {
+                        properHeight = properSizes.getLast().getHeight();
+                    }
                 }
-            }
-            if (properHeight < 0) {
-                properHeight = properSizes.getLast().getHeight();
-            }
-            if (properWidth < 0) {
-                properWidth = properSizes.getLast().getWidth();
             }
             System.out.println("CanvasSize = " + properWidth + " : " + properHeight);
             properSize = new Dimension2D(properWidth, properHeight);
@@ -116,6 +125,7 @@ public class MainViewModel {
         properSizes.add(new Dimension2D(800, 600));
         properSizes.add(new Dimension2D(1024, 768));
         properSizes.add(new Dimension2D(1280, 768));
+        properSizes.add(new Dimension2D(1280, 830));
         properSizes.add(new Dimension2D(1280, 960));
         properSizes.add(new Dimension2D(1450, 1050));
         properSizes.add(new Dimension2D(1440, 900));

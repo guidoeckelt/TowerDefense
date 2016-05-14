@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * Created by Guido on 12.05.2016.
  */
-public class MoveEvent {
+public class MoveInfo {
 
     private Dimension2D gridSize;
     private List<GameObject> gameObjects;
 
-    public MoveEvent(Dimension2D gridSize, List<GameObject> gameObjects) {
+    public MoveInfo(Dimension2D gridSize, List<GameObject> gameObjects) {
         this.gridSize = gridSize;
         this.gameObjects = gameObjects;
     }

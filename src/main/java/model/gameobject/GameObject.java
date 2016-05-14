@@ -1,9 +1,9 @@
 package model.gameobject;
 
 import javafx.geometry.Dimension2D;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import model.Vector.Vector2D;
+import model.util.DrawParamaters;
 
 /**
  * Created by Guido on 05.05.2016.
@@ -24,7 +24,21 @@ public abstract class GameObject {
         this.updateVisual();
     }
 
-    public abstract void draw(GraphicsContext context, double fieldSize);
+    public boolean intersects(GameObject gameObject){
+        //System.out.println(this.position.getX()+" :: "+(gameObject.getPosition().getX()+gameObject.getSize().getWidth()));
+        if(this.position.getX() <= gameObject.getPosition().getX()+gameObject.getSize().getWidth() ||
+                this.position.getX() + this.size.getWidth() >= gameObject.getPosition().getX() ||
+                this.getPosition().getX() == gameObject.getPosition().getX()){
+            if(this.position.getY() <= gameObject.getPosition().getY()+gameObject.getSize().getHeight() ||
+                    this.position.getY() + this.size.getHeight() >= gameObject.getPosition().getY() ||
+                    this.getPosition().getY() == gameObject.getPosition().getY()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public abstract void draw(DrawParamaters drawParamaters);
 
     public abstract void updateVisual();
 
@@ -52,4 +66,5 @@ public abstract class GameObject {
     public Color getColor() {
         return color;
     }
+
 }

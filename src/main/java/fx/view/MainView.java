@@ -50,14 +50,14 @@ public class MainView implements Initializable {
         scene.setOnDragEntered(dragEvent -> {
             if (dragEvent.getDragboard().hasString()) {
                 String name = dragEvent.getDragboard().getString();
-                viewModel.newToCreatingTower(name, dragEvent.getX(), dragEvent.getY());
+                viewModel.createNewPossibleTower(name, dragEvent.getX(), dragEvent.getY());
             }
         });
         scene.setOnDragOver(dragEvent -> {
+            viewModel.updateNewPossibleTower(dragEvent.getX(), dragEvent.getY());
             if (dragEvent.getDragboard().hasString()) {
                 if (viewModel.isTowerOnFreeSpot()) {
                     dragEvent.acceptTransferModes(TransferMode.ANY);
-                    viewModel.updateToCreatingTower(dragEvent.getX(), dragEvent.getY());
                     viewModel.markTowerAsValid();
                 } else {
                     viewModel.markTowerAsInvalid();
@@ -72,7 +72,7 @@ public class MainView implements Initializable {
         });
         scene.setOnDragDropped(dragEvent -> {
             if (viewModel.isTowerOnFreeSpot()) {
-                viewModel.createTower();
+                viewModel.addNewPossibleTower();
                 dragEvent.setDropCompleted(true);
             } else {
                 viewModel.abortTowerCreation();
