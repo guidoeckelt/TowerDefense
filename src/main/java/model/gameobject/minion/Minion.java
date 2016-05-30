@@ -2,8 +2,8 @@ package model.gameobject.minion;
 
 import interfaces.Moveable;
 import javafx.geometry.Dimension2D;
-import model.Vector.Vector2D;
 import model.gameobject.GameObject;
+import model.vector.Vector2D;
 
 /**
  * Created by Guido on 11.05.2016.

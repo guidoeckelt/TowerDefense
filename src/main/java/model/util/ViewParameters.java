@@ -4,6 +4,7 @@ import javafx.geometry.Dimension2D;
 import model.WayPoint;
 import model.gameobject.GameObject;
 import model.gameobject.tower.Tower;
+import model.map.Map;
 
 import java.util.List;
 
@@ -16,11 +17,11 @@ public class ViewParameters {
     private final Tower toCreatingTower;
     private final Dimension2D gridSize;
 
-    public ViewParameters(List<GameObject> toDrawingGameObjects, List<WayPoint> wayPoints, Tower toCreatingTower, Dimension2D gridSize) {
+    public ViewParameters(List<GameObject> toDrawingGameObjects, Map currentMap, Tower toCreatingTower) {
         this.toDrawingGameObjects = toDrawingGameObjects;
-        this.wayPoints = wayPoints;
+        this.wayPoints = currentMap.getWayPoints();
         this.toCreatingTower = toCreatingTower;
-        this.gridSize = gridSize;
+        this.gridSize = currentMap.getGridSize();
     }
 
     public List<GameObject> getToDrawingGameObjects() {

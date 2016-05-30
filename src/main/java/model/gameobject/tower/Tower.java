@@ -2,9 +2,9 @@ package model.gameobject.tower;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.input.DataFormat;
-import model.Vector.Vector2D;
 import model.gameobject.GameObject;
 import model.gameobject.minion.Minion;
+import model.vector.Vector2D;
 
 import java.io.Serializable;
 import java.util.ArrayList;

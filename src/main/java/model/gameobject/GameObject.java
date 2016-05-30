@@ -2,8 +2,8 @@ package model.gameobject;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.paint.Color;
-import model.Vector.Vector2D;
 import model.util.DrawParamaters;
+import model.vector.Vector2D;
 
 /**
  * Created by Guido on 05.05.2016.
@@ -25,17 +25,16 @@ public abstract class GameObject {
     }
 
     public boolean intersects(GameObject gameObject){
-        //System.out.println(this.position.getX()+" :: "+(gameObject.getPosition().getX()+gameObject.getSize().getWidth()));
-        if(this.position.getX() <= gameObject.getPosition().getX()+gameObject.getSize().getWidth() ||
-                this.position.getX() + this.size.getWidth() >= gameObject.getPosition().getX() ||
-                this.getPosition().getX() == gameObject.getPosition().getX()){
-            if(this.position.getY() <= gameObject.getPosition().getY()+gameObject.getSize().getHeight() ||
-                    this.position.getY() + this.size.getHeight() >= gameObject.getPosition().getY() ||
-                    this.getPosition().getY() == gameObject.getPosition().getY()){
-                return false;
+//        System.out.println(this.position.getX()+" :: "+(gameObject.getPosition().getX()+gameObject.getSize().getWidth()));
+//        System.out.println(this.position.getY()+" :: "+(gameObject.getPosition().getY()+gameObject.getSize().getHeight()));
+        if(this.position.getX() <= gameObject.getPosition().getX()+gameObject.getSize().getWidth() &&
+                this.position.getX() + this.size.getWidth() >= gameObject.getPosition().getX()){
+            if(this.position.getY() <= gameObject.getPosition().getY()+gameObject.getSize().getHeight() &&
+                    this.position.getY() + this.size.getHeight() >= gameObject.getPosition().getY()){
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public abstract void draw(DrawParamaters drawParamaters);

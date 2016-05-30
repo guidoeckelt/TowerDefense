@@ -67,7 +67,7 @@ public class MainView implements Initializable {
         });
         scene.setOnDragExited(dragEvent -> {
             if (viewModel.getTd().toCreatingTowerProperty().get() != null) {
-                viewModel.abortTowerCreation();
+                viewModel.clearNewPossibleTower();
             }
         });
         scene.setOnDragDropped(dragEvent -> {
@@ -75,12 +75,10 @@ public class MainView implements Initializable {
                 viewModel.addNewPossibleTower();
                 dragEvent.setDropCompleted(true);
             } else {
-                viewModel.abortTowerCreation();
+                viewModel.clearNewPossibleTower();
                 dragEvent.setDropCompleted(false);
             }
         });
-
-
         sceneContainer.getChildren().add(scene);
         viewModel.getTd().getView().setScene(scene);
     }

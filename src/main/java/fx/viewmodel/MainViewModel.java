@@ -2,11 +2,11 @@ package fx.viewmodel;
 
 import javafx.geometry.Dimension2D;
 import model.TowerDefense;
-import model.Vector.Vector2D;
 import model.gameobject.GameObject;
 import model.gameobject.tower.BuildStatus;
 import model.gameobject.tower.Tower;
 import model.gameobject.tower.impl.Gunner;
+import model.vector.Vector2D;
 
 import java.util.LinkedList;
 
@@ -41,8 +41,7 @@ public class MainViewModel {
     public boolean isTowerOnFreeSpot() {
         if(td.getGameObjects().size() > 0){
             for(GameObject gameObject : td.getGameObjects()){
-                if(td.toCreatingTowerProperty().get() != gameObject &&
-                        td.toCreatingTowerProperty().get().intersects(gameObject)){
+                if(td.toCreatingTowerProperty().get().intersects(gameObject)){
                     return false;
                 }
             }
@@ -61,10 +60,10 @@ public class MainViewModel {
     public void addNewPossibleTower() {
         td.getToCreatingTower().setBuildStatus(BuildStatus.BUILD);
         td.addGameObject(td.getToCreatingTower());
-        td.toCreatingTowerProperty().setValue(null);
+        clearNewPossibleTower();
     }
 
-    public void abortTowerCreation() {
+    public void clearNewPossibleTower() {
         td.toCreatingTowerProperty().setValue(null);
     }
 

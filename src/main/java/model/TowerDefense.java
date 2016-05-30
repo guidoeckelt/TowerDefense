@@ -6,13 +6,16 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Dimension2D;
-import model.Vector.Vector2D;
 import model.gameobject.GameObject;
 import model.gameobject.minion.Minion;
 import model.gameobject.minion.impl.Square;
 import model.gameobject.tower.Tower;
+import model.map.AvailableMaps;
+import model.map.Map;
+import model.map.impl.FirstMap;
 import model.util.MoveInfo;
 import model.util.ViewParameters;
+import model.vector.Vector2D;
 
 import java.util.*;
 
@@ -26,21 +29,23 @@ public class TowerDefense {
     private ObservableList<GameObject> gameObjects = FXCollections.observableArrayList();
     private ObservableList<Moveable> moveableObjects = FXCollections.observableArrayList();
     //MapInfo
+    private List<AvailableMaps> availableMaps;
+    private Map currentMap;
     private Dimension2D gridSize;
-    private LinkedList<WayPoint> wayPoints = new LinkedList<>();
-        //LevelInfo
-    private Date lastminioncreation;
-    private long miniontimeout;
-    //MenuInfo
-    private ObjectProperty<Tower> toCreatingTower = new SimpleObjectProperty<>();
-
+    //GameLoop
     private Timer timer;
     private long delay;
     private TimerTask gameLoop;
 
+    //MenuInfo
+    private ObjectProperty<Tower> toCreatingTower = new SimpleObjectProperty<>();
+
+
     public TowerDefense() {
+        loadAvailableMaps();
+
         this.view = new View();
-        this.delay = 60;
+        this.delay = 100;
         this.timer = new Timer(true);
         this.gameLoop = new TimerTask() {
             @Override
@@ -53,30 +58,33 @@ public class TowerDefense {
     private void gameLoop() {
         moveAllObjects();
         createMinion();
-        view.render(new ViewParameters(gameObjects, wayPoints, toCreatingTower.get(),gridSize));
+
+        view.render(new ViewParameters(gameObjects, currentMap, toCreatingTower.get()));
     }
 
     private void moveAllObjects(){
         if(moveableObjects.size() > 0){
             for (int i = 0; i < moveableObjects.size();i++) {
                 Moveable moveable = moveableObjects.get(i);
-                int index = this.gameObjects.indexOf(moveable);
-                List<GameObject> gameObjects = this.gameObjects.subList(index,index+1);
-                if(!moveable.move(new MoveInfo(gridSize, gameObjects))){
-                    this.removeGameObject(gameObjects.get(gameObjects.indexOf(((GameObject) moveable))));
+                if(!moveable.move(new MoveInfo(currentMap.getGridSize(), gameObjects))){
+                    if(moveable instanceof GameObject){
+                        this.removeGameObject(gameObjects.get(gameObjects.indexOf((moveable))));
+                    }
                 }
             }
         }
     }
 
     private void createMinion(){
-        if(lastminioncreation == null||(lastminioncreation.getTime() + miniontimeout) < new Date().getTime()) {
+        long lastminioncreation = currentMap.getCurrentLevel().getLastminioncreation();
+        long miniontimeout = currentMap.getCurrentLevel().getMiniontimeout();
+        if(lastminioncreation == -1||(lastminioncreation + miniontimeout) < new Date().getTime()) {
             double x = 0;
-            double y = (gridSize.getHeight()/2);
+            double y = (currentMap.getGridSize().getHeight()/2);
 
             Minion minion = new Square(new Vector2D(x, y));
             this.addGameObject(minion);
-            lastminioncreation = new Date();
+            currentMap.getCurrentLevel().setLastminioncreation(new Date().getTime());
         }
     }
 
@@ -94,24 +102,22 @@ public class TowerDefense {
         }
     }
 
-    private void loadLevel(){
-        //gridSize = new Dimension2D(190,80);
-        Vector2D position = new Vector2D(this.gridSize.getWidth()-2,this.gridSize.getHeight()/2);
-        WayPoint wayPoint = new WayPoint(position);
-        wayPoints.addLast(wayPoint);
-        position = new Vector2D(2,this.gridSize.getHeight()/2);
-        WayPoint wayPoint2 = new WayPoint(position, wayPoint);
-        wayPoints.addFirst(wayPoint2);
-
-        this.miniontimeout = 5000;
+    private void loadMap(AvailableMaps availableMaps){
+        switch (availableMaps){
+            case FirstMap: currentMap = new FirstMap(); break;
+            default: System.out.println(availableMaps);
+        }
     }
 
+
     public void start() {
-        double width = view.getWidth()/view.getFieldSize();
-        double height = view.getHeight()/view.getFieldSize();
-        gridSize = new Dimension2D(width, height);
-        loadLevel();
+        loadMap(AvailableMaps.FirstMap);
         timer.scheduleAtFixedRate(gameLoop, 0,delay);
+    }
+
+    private void loadAvailableMaps(){
+        availableMaps = new ArrayList<>();
+        availableMaps.add(AvailableMaps.FirstMap);
     }
 
     public View getView() {

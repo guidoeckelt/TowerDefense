@@ -1,10 +1,10 @@
 package model.gameobject.tower.impl;
 
 import javafx.scene.paint.Color;
-import model.Vector.Vector2D;
 import model.gameobject.tower.BuildStatus;
 import model.gameobject.tower.Tower;
 import model.util.DrawParamaters;
+import model.vector.Vector2D;
 
 /**
  * Created by Guido on 08.05.2016.

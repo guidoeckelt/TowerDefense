@@ -2,9 +2,9 @@ package fx.viewmodel;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import model.Vector.Vector2D;
 import model.gameobject.tower.Tower;
 import model.gameobject.tower.impl.Gunner;
+import model.vector.Vector2D;
 
 /**
  * Created by Guido on 06.05.2016.

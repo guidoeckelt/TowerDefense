@@ -1,11 +1,11 @@
 package model.gameobject.minion.impl;
 
 import javafx.scene.paint.Color;
-import model.Vector.Vector2D;
 import model.gameobject.GameObject;
 import model.gameobject.minion.Minion;
 import model.util.DrawParamaters;
 import model.util.MoveInfo;
+import model.vector.Vector2D;
 
 import java.util.List;
 
@@ -17,35 +17,35 @@ public class Square extends Minion {
     public Square(Vector2D position) {
         super(position);
         moveDirection = new Vector2D(1,0).normalized();
-        speed = 0.5;
+        speed = 1;
         this.color = Color.rgb(1,1,0);
     }
 
     @Override
     public boolean move(MoveInfo moveInfo) {
-        boolean moved;
         if(this.position.getX() >= moveInfo.getGridSize().getWidth()){
             this.position = new Vector2D(0,this.position.getY()+1);
-            moved = false;
+            return false;
         }else{
-            if(this.canMove(moveInfo.getGameObjects())){
-                this.position = this.position.add(moveDirection.normalized().multipliedBy(speed));
-                moved = true;
+            GameObject collidingGameObject = this.checkForIntersectionWith(moveInfo.getGameObjects());
+            if(collidingGameObject == null){
+                this.position = this.position.add(moveDirection.multipliedBy(speed));
+                updateVisual();
+                return true;
             }else{
-                moved = false;
+                //double distance = collidingGameObject.getPosition().
             }
         }
-        updateVisual();
-        return moved;
+        return false;
     }
 
-    private boolean canMove(List<GameObject> gameObjects){
+    private GameObject checkForIntersectionWith(List<GameObject> gameObjects){
         for(GameObject gameObject : gameObjects){
-            if(this.intersects(gameObject)){
-                return false;
+            if(this != gameObject && this.intersects(gameObject)){
+                return gameObject;
             }
         }
-        return true;
+        return null;
     }
 
     @Override

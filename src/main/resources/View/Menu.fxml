@@ -17,15 +17,15 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="150.0" minHeight="100.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="150.0" minHeight="100.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="150.0" prefHeight="100.0" minHeight="0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="150.0" prefHeight="100.0" minHeight="0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
         <HBox fx:id="container" alignment="CENTER" maxHeight="100.0" style="-fx-border-color: #000000;">
             <children>
                 <ImageView fx:id="towerGraphic" fitHeight="90.0" fitWidth="90.0" pickOnBounds="true"
                            preserveRatio="true"/>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0">
                     <children>
                         <Label fx:id="lblName" text="Label"/>
                         <Label fx:id="lblCost" text="Label"/>

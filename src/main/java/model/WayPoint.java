@@ -1,6 +1,6 @@
 package model;
 
-import model.Vector.Vector2D;
+import model.vector.Vector2D;
 
 import java.util.List;
 
