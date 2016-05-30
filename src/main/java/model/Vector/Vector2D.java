@@ -1,4 +1,4 @@
-package model.Vector;
+package model.vector;
 
 /**
  * Created by Guido on 05.05.2016.
